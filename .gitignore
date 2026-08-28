@@ -1,0 +1,47 @@
+# Ethical OSINT Project - Git Ignore
+# ===================================
+
+# Environment variables
+.env
+*.env
+config/settings.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Reports (generated)
+reports/
+
+# Data (temporary)
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+*.egg

@@ -21,12 +21,10 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "requests>=2.31.0",
-        "beautifulsoup4>=4.12.0",
         "python-whois>=0.9.4",
         "tldextract>=5.1.0",
-        "rich>=13.7.0",
-        "loguru>=0.7.0",
         "python-dotenv>=1.0.0",
+        "Flask>=3.0.0",
     ],
     extras_require={
         "dev": ["pytest>=7.4.0", "pytest-cov>=4.1.0"],

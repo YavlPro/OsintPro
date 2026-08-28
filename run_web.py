@@ -14,12 +14,15 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from web.app import app
 
 if __name__ == '__main__':
+    import os
+    debug = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    port = int(os.environ.get('PORT', 5000))
+    
     print("=" * 60)
     print("OsintPro - Web Interface")
     print("=" * 60)
-    print("Server starting...")
-    print("Access: http://localhost:5000")
-    print("Press Ctrl+C to stop")
+    print(f"Server starting on port {port}...")
+    print(f"Debug mode: {debug}")
     print("=" * 60)
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug, host='0.0.0.0', port=port)

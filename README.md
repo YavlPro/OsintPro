@@ -84,20 +84,56 @@ OsintPro/
 └── config/                   # Configuracion
 ```
 
-## API Keys (Opcional)
+## API Keys (Opcionales)
 
-Copia `config/settings.env` a `.env` y agrega tus API keys:
+Copia `.env.example` a `.env` y agrega tus API keys:
 
 ```bash
-cp config/settings.env .env
+cp .env.example .env
 ```
 
 Keys disponibles:
-- `ETHERSCAN_API_KEY` - Para análisis Ethereum
-- `VIRUSTOTAL_API_KEY` - Para verificación de URLs
-- `HIBP_API_KEY` - Para verificación de brechas
+- `ETHERSCAN_API_KEY` - Para análisis Ethereum (gratis en etherscan.io)
+- `HIBP_API_KEY` - Para verificación de brechas (haveibeenpwned.com)
+- `SECRET_KEY` - Clave de firma de sesiones de Flask (genera una aleatoria)
 
-## Aviso Ético
+> Sin API keys la aplicación sigue funcionando, pero los módulos que dependen
+> de esas APIs (balance ETH, brechas) degradan o se omiten.
+
+## Producción
+
+En Railway/Render el servidor se lanza con **Gunicorn** (ver `railway.json`,
+`render.yaml` y `Procfile`). Para probar el mismo servidor localmente:
+
+```bash
+gunicorn --bind 0.0.0.0:8000 --workers 2 --threads 4 web.app:app
+```
+
+El servidor de desarrollo de Flask (`python run_web.py`) queda solo para desarrollo local.
+
+## Estructura del Proyecto
+
+```
+OsintPro/
+├── main.py                    # CLI principal
+├── run_web.py                 # Servidor de desarrollo local
+├── Procfile                   # Arranque de producción (Gunicorn)
+├── railway.json / render.yaml # Config de despliegue
+├── requirements.txt           # Dependencias
+├── src/                       # Modulos principales
+│   ├── crypto/               # Analisis blockchain
+│   ├── phishing/             # Deteccion de phishing
+│   ├── domain_analysis/      # Analisis de dominios/proyectos
+│   ├── breach_monitor/       # Monitoreo de brechas
+│   └── utils/                # Utilidades compartidas
+├── web/                       # Interfaz web
+│   ├── app.py                # Servidor Flask (con rate limiting)
+│   ├── templates/            # HTML templates
+│   └── static/               # CSS, JS, imagenes
+├── tests/                    # Pruebas (incluye tests de API)
+├── reports/                  # Reportes generados
+└── .github/workflows/        # CI (GitHub Actions)
+```
 
 Este proyecto está diseñado **únicamente** para:
 - Investigación y educación

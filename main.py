@@ -79,7 +79,7 @@ Examples:
 
 def handle_crypto(args):
     from src.crypto import WalletChecker
-    checker = WalletChecker()
+    checker = WalletChecker(etherscan_api_key=_env_key("ETHERSCAN_API_KEY"))
     result = checker.check_wallet(args.address)
     print(checker.format_result(result))
 
@@ -92,7 +92,7 @@ def handle_phishing(args):
         print(checker.format_analysis(result))
     elif args.phishing_action == "email":
         from src.phishing import EmailAnalyzer
-        analyzer = EmailAnalyzer()
+        analyzer = EmailAnalyzer(hibp_api_key=_env_key("HIBP_API_KEY"))
         result = analyzer.comprehensive_analysis(args.email)
         print(analyzer.format_analysis(result))
     elif args.phishing_action == "domain":
@@ -113,7 +113,7 @@ def handle_domain(args):
 
 def handle_breach(args):
     from src.breach_monitor import BreachChecker
-    checker = BreachChecker()
+    checker = BreachChecker(hibp_api_key=_env_key("HIBP_API_KEY"))
     result = checker.comprehensive_check(args.email)
     print(checker.format_analysis(result))
 
@@ -124,6 +124,12 @@ def handle_project(args):
     project_info = {"name": args.name, "website": args.website, "github": args.github or ""}
     result = analyzer.analyze_crypto_project(project_info)
     print(analyzer.format_analysis(result))
+
+
+def _env_key(name: str):
+    """Read an API key from the environment, returning None if not set."""
+    import os
+    return os.environ.get(name, "").strip() or None
 
 
 if __name__ == "__main__":

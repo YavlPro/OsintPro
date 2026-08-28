@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OsintPro - Ethical OSINT Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">OS</div>
+                <div class="logo-text">Osint<span>Pro</span></div>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                    <span class="theme-text">Oscuro</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Modulos</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" data-section="crypto">
+                        <span class="nav-icon">💰</span>
+                        <span>Crypto Analysis</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-section="phishing">
+                        <span class="nav-icon">🎣</span>
+                        <span>Phishing Detection</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-section="domain">
+                        <span class="nav-icon">🌐</span>
+                        <span>Domain Analysis</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-section="project">
+                        <span class="nav-icon">📋</span>
+                        <span>Project Check</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-section="breach">
+                        <span class="nav-icon">🔓</span>
+                        <span>Breach Monitor</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Crypto Section -->
+            <section id="crypto" class="section active">
+                <div class="section-header">
+                    <h1 class="section-title">Crypto Analysis</h1>
+                    <p class="section-description">Analiza direcciones de wallets Ethereum y Bitcoin</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Verificar Wallet</div>
+                    </div>
+                    
+                    <form id="cryptoForm">
+                        <div class="form-group">
+                            <label class="form-label">Direccion de Wallet</label>
+                            <input type="text" id="cryptoAddress" class="form-input" 
+                                   placeholder="0x... (ETH) o 1.../3.../bc1... (BTC)" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Analizar Wallet
+                        </button>
+                    </form>
+                    
+                    <div id="cryptoLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analizando direccion...</p>
+                    </div>
+                    
+                    <div id="cryptoResults" class="results-container"></div>
+                </div>
+            </section>
+
+            <!-- Phishing Section -->
+            <section id="phishing" class="section">
+                <div class="section-header">
+                    <h1 class="section-title">Phishing Detection</h1>
+                    <p class="section-description">Detecta URLs, emails y dominios sospechosos</p>
+                </div>
+                
+                <!-- URL Check -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-title">Verificar URL</div>
+                    </div>
+                    
+                    <form id="urlForm">
+                        <div class="form-group">
+                            <label class="form-label">URL a Analizar</label>
+                            <input type="url" id="urlInput" class="form-input" 
+                                   placeholder="https://ejemplo.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Analizar URL
+                        </button>
+                    </form>
+                    
+                    <div id="urlLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analizando URL...</p>
+                    </div>
+                    
+                    <div id="urlResults" class="results-container"></div>
+                </div>
+                
+                <!-- Email Check -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📧</div>
+                        <div class="card-title">Verificar Email</div>
+                    </div>
+                    
+                    <form id="emailForm">
+                        <div class="form-group">
+                            <label class="form-label">Email a Analizar</label>
+                            <input type="email" id="emailInput" class="form-input" 
+                                   placeholder="usuario@ejemplo.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Analizar Email
+                        </button>
+                    </form>
+                    
+                    <div id="emailLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analizando email...</p>
+                    </div>
+                    
+                    <div id="emailResults" class="results-container"></div>
+                </div>
+                
+                <!-- Domain Phishing Check -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚠️</div>
+                        <div class="card-title">Verificar Dominio (Phishing)</div>
+                    </div>
+                    
+                    <form id="domainPhishingForm">
+                        <div class="form-group">
+                            <label class="form-label">Dominio a Analizar</label>
+                            <input type="text" id="domainPhishingInput" class="form-input" 
+                                   placeholder="ejemplo.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Analizar Dominio
+                        </button>
+                    </form>
+                    
+                    <div id="domainPhishingLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analizando dominio...</p>
+                    </div>
+                    
+                    <div id="domainPhishingResults" class="results-container"></div>
+                </div>
+            </section>
+
+            <!-- Domain Section -->
+            <section id="domain" class="section">
+                <div class="section-header">
+                    <h1 class="section-title">Domain Analysis</h1>
+                    <p class="section-description">Consulta WHOIS y analiza dominios</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-title">WHOIS Lookup</div>
+                    </div>
+                    
+                    <form id="whoisForm">
+                        <div class="form-group">
+                            <label class="form-label">Dominio</label>
+                            <input type="text" id="whoisInput" class="form-input" 
+                                   placeholder="ejemplo.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Consultar WHOIS
+                        </button>
+                    </form>
+                    
+                    <div id="whoisLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Consultando WHOIS...</p>
+                    </div>
+                    
+                    <div id="whoisResults" class="results-container"></div>
+                </div>
+            </section>
+
+            <!-- Project Section -->
+            <section id="project" class="section">
+                <div class="section-header">
+                    <h1 class="section-title">Project Check</h1>
+                    <p class="section-description">Analiza la legitimidad de proyectos crypto</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">Analizar Proyecto</div>
+                    </div>
+                    
+                    <form id="projectForm">
+                        <div class="form-group">
+                            <label class="form-label">Nombre del Proyecto</label>
+                            <input type="text" id="projectName" class="form-input" 
+                                   placeholder="MiProyecto" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sitio Web</label>
+                            <input type="url" id="projectWebsite" class="form-input" 
+                                   placeholder="https://ejemplo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">GitHub (Opcional)</label>
+                            <input type="url" id="projectGithub" class="form-input" 
+                                   placeholder="https://github.com/user/repo">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Analizar Proyecto
+                        </button>
+                    </form>
+                    
+                    <div id="projectLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analizando proyecto...</p>
+                    </div>
+                    
+                    <div id="projectResults" class="results-container"></div>
+                </div>
+            </section>
+
+            <!-- Breach Section -->
+            <section id="breach" class="section">
+                <div class="section-header">
+                    <h1 class="section-title">Breach Monitor</h1>
+                    <p class="section-description">Verifica si tu email ha sido filtrado en brechas de datos</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔓</div>
+                        <div class="card-title">Verificar Brechas</div>
+                    </div>
+                    
+                    <form id="breachForm">
+                        <div class="form-group">
+                            <label class="form-label">Email a Verificar</label>
+                            <input type="email" id="breachEmail" class="form-input" 
+                                   placeholder="usuario@ejemplo.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Verificar Brechas
+                        </button>
+                    </form>
+                    
+                    <div id="breachLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Verificando brechas...</p>
+                    </div>
+                    
+                    <div id="breachResults" class="results-container"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>OsintPro - Ethical OSINT Project | Herramientas de investigacion etica</p>
+        <p style="margin-top: 0.5rem;">Solo para fines educativos y de investigacion</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

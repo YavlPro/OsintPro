@@ -30,6 +30,18 @@ pip install -e .
 
 ## Uso
 
+### Interfaz Web (Recomendado)
+
+```bash
+# Iniciar servidor web
+python run_web.py
+
+# Abrir en navegador
+# http://localhost:5000
+```
+
+### Linea de Comandos (CLI)
+
 ```bash
 # Verificar wallet Ethereum
 python main.py crypto check 0x742d35Cc6634C0532925a3b844Bc9e7595f2bD3e
@@ -41,7 +53,7 @@ python main.py crypto check 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 python main.py phishing url https://suspicious-site.com
 
 # Verificar email en brechas
-python main.py breach user@example.com
+python main.py breach user@email.com
 
 # Analizar dominio
 python main.py domain example.com
@@ -55,16 +67,21 @@ python main.py project MiProyecto https://example.com --github https://github.co
 ```
 OsintPro/
 ├── main.py                    # CLI principal
+├── run_web.py                 # Iniciar interfaz web
 ├── requirements.txt           # Dependencias
-├── src/
-│   ├── crypto/               # Análisis blockchain
-│   ├── phishing/             # Detección de phishing
-│   ├── domain_analysis/      # Análisis de dominios/proyectos
+├── src/                       # Modulos principales
+│   ├── crypto/               # Analisis blockchain
+│   ├── phishing/             # Deteccion de phishing
+│   ├── domain_analysis/      # Analisis de dominios/proyectos
 │   ├── breach_monitor/       # Monitoreo de brechas
 │   └── utils/                # Utilidades compartidas
+├── web/                       # Interfaz web
+│   ├── app.py                # Servidor Flask
+│   ├── templates/            # HTML templates
+│   └── static/               # CSS, JS, imagenes
 ├── tests/                    # Pruebas
 ├── reports/                  # Reportes generados
-└── config/                   # Configuración
+└── config/                   # Configuracion
 ```
 
 ## API Keys (Opcional)
